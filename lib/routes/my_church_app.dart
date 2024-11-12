@@ -17,6 +17,7 @@ class _MyChurchAppState extends State<MyChurchApp> {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       bottomNavigationBar: NavigationBar(
+        backgroundColor: Colors.deepPurpleAccent,
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;

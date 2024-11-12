@@ -10,48 +10,245 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isGridView = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
-      ),
-      body: ListView.builder(
-        itemCount: famousChurches.length,
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          final church = famousChurches[index];
-          return Card(
-            margin: const EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: Image.asset(
-                church.mainImageUrl,
-                width: 75,
-                height: 75,
-                fit: BoxFit.cover,
+        title: const Text(
+          'Home Page',
+          style: TextStyle(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              color: Colors.white),
+        ),
+        backgroundColor: Colors.deepPurple, // Mengubah warna background AppBar
+        actions: [
+          // Menambahkan AnimatedSwitcher untuk ikon transisi yang halus
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: IconButton(
+              key: ValueKey<bool>(isGridView),
+              icon: Icon(
+                isGridView ? Icons.grid_view : Icons.list,
+                size: 28,
+                color: Colors.white, // Warna ikon putih
               ),
-              title: Text(
-                church.name,
-                style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Fontserrat'),
-              ),
-              subtitle: Text('${church.city}, ${church.country}'),
-              isThreeLine: true,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        ChurchDetailPage(church: famousChurches[index]),
-                  ),
-                );
+              onPressed: () {
+                setState(() {
+                  isGridView = !isGridView; // Mengubah tampilan
+                });
               },
             ),
-          );
-        },
+          ),
+        ],
       ),
+      body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+        if (isGridView == false) {
+          return const FamousChurchesGridView(gridCount: 2);
+        } else {
+          return const FamousChurchesListView();
+        }
+      }),
+    );
+  }
+}
+
+class FamousChurchesListView extends StatelessWidget {
+  // Constructor untuk menerima data famousChurches
+  const FamousChurchesListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: famousChurches.length,
+      physics: BouncingScrollPhysics(),
+      itemBuilder: (context, index) {
+        final church = famousChurches[index];
+        return Card(
+          margin: const EdgeInsets.all(12.0),
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ChurchDetailPage(church: famousChurches[index]),
+                ),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  // Gambar gereja
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset(
+                      church.mainImageUrl,
+                      width: 90,
+                      height: 90,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  // Informasi gereja
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          church.name,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Fontserrat',
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '${church.city}, ${church.country}',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        // Rating
+                        Row(
+                          children: [
+                            const Icon(Icons.star,
+                                color: Colors.amber, size: 16),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${church.rating} / 5',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class FamousChurchesGridView extends StatelessWidget {
+  final int gridCount; // Menentukan jumlah kolom pada grid
+
+  // Constructor untuk menerima gridCount
+  const FamousChurchesGridView({super.key, required this.gridCount});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      itemCount: famousChurches.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount:
+            gridCount, // Menggunakan gridCount untuk menentukan jumlah kolom
+        crossAxisSpacing: 8.0,
+        mainAxisSpacing: 8.0,
+      ),
+      itemBuilder: (context, index) {
+        final church = famousChurches[index];
+        return Card(
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12), // Border radius untuk card
+          ),
+          child: ClipRRect(
+            borderRadius:
+                BorderRadius.circular(12), // Border radius untuk gambar
+            child: GridTile(
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    church.mainImageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                  Container(
+                    color: Colors.black
+                        .withOpacity(0.4), // Overlay gelap di gambar
+                  ),
+                  // Teks di atas gambar
+                  Positioned(
+                    bottom: 10,
+                    left: 10,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          church.name,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 10.0,
+                                color: Colors.black,
+                                offset: Offset(2.0, 2.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          '${church.city}, ${church.country}',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 10.0,
+                                color: Colors.black,
+                                offset: Offset(2.0, 2.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.star,
+                                color: Colors.amber, size: 16),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${church.rating} / 5',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
