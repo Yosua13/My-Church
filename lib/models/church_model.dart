@@ -15,6 +15,7 @@ class ChurchModel {
   final String ticketPrice;
   final double rating;
   final String interestingFacts;
+  // bool isFavorite = false;
 
   ChurchModel({
     required this.name,
@@ -33,5 +34,6 @@ class ChurchModel {
     required this.ticketPrice,
     required this.rating,
     required this.interestingFacts,
+    // required this.isFavorite
   });
 }

@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:proyek_akhir_dicoding/routes/my_church_app.dart';
+import 'package:provider/provider.dart';
+import 'package:proyek_akhir_dicoding/provider/favorite_churches_provider.dart';
+import 'package:proyek_akhir_dicoding/provider/user_provider.dart';
+import 'package:proyek_akhir_dicoding/routes/login_page.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => FavoriteChurchesProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       debugShowCheckedModeBanner: false,
-      home: const MyChurchApp(),
+      home: const LoginPage(),
     );
   }
 }

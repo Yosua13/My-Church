@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:proyek_akhir_dicoding/models/church_model.dart';
+import 'package:proyek_akhir_dicoding/provider/favorite_churches_provider.dart';
 
 class ChurchDetailPage extends StatefulWidget {
   final ChurchModel church;
 
-  ChurchDetailPage({required this.church});
+  const ChurchDetailPage({super.key, required this.church});
 
   @override
-  _ChurchDetailPageState createState() => _ChurchDetailPageState();
+  State<ChurchDetailPage> createState() => _ChurchDetailPageState();
 }
 
 class _ChurchDetailPageState extends State<ChurchDetailPage> {
+  late bool isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = context
+        .read<FavoriteChurchesProvider>()
+        .favoriteChurches
+        .contains(widget.church);
+  }
+
   @override
   Widget build(BuildContext context) {
     final church = widget.church;
@@ -18,6 +31,24 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Details Church'),
+        actions: [
+          IconButton(
+            icon: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: isFavorite ? Colors.red : Colors.black,
+            ),
+            onPressed: () {
+              if (isFavorite) {
+                context.read<FavoriteChurchesProvider>().removeFavorite(church);
+              } else {
+                context.read<FavoriteChurchesProvider>().addFavorite(church);
+              }
+              setState(() {
+                isFavorite = !isFavorite;
+              });
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -30,8 +61,9 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                church.name ?? 'Unknown',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                church.name,
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
 
@@ -41,14 +73,15 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Location:',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
-                    '${church.city ?? 'Unknown City'}, ${church.province ?? 'Unknown Province'}, ${church.country ?? 'Unknown Country'}',
-                    style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+                    '${church.city}, ${church.province}, ${church.country}',
+                    style: const TextStyle(
+                        fontSize: 18, fontStyle: FontStyle.italic),
                   ),
                 ],
               ),
@@ -60,22 +93,23 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Address:',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
-                    '${church.address ?? 'Unknown Address'}',
-                    style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+                    church.address,
+                    style: const TextStyle(
+                        fontSize: 18, fontStyle: FontStyle.italic),
                   ),
                 ],
               ),
             ),
 
             // GPS link
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 'GPS Link:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -85,15 +119,11 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  if (church.gpsLink != null) {
-                    // Open GPS Link in browser
-                    // Use url_launcher or open the link directly (for simplicity here, using print)
-                    print('Opening GPS Link: ${church.gpsLink}');
-                  }
+                  print('Opening GPS Link: ${church.gpsLink}');
                 },
                 child: Text(
-                  church.gpsLink ?? 'No link available',
-                  style: TextStyle(
+                  church.gpsLink,
+                  style: const TextStyle(
                       fontSize: 18,
                       color: Colors.blue,
                       decoration: TextDecoration.underline),
@@ -102,8 +132,8 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
             ),
 
             // History Section
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 'History:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -112,14 +142,14 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                church.history ?? 'No history available',
-                style: TextStyle(fontSize: 16),
+                church.history,
+                style: const TextStyle(fontSize: 16),
               ),
             ),
 
             // Opening Hours
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 'Opening Hours:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -128,14 +158,14 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                church.openingHours ?? 'No opening hours available',
-                style: TextStyle(fontSize: 18),
+                church.openingHours,
+                style: const TextStyle(fontSize: 18),
               ),
             ),
 
             // Ticket Price
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 'Ticket Price:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -144,14 +174,14 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                church.ticketPrice ?? 'Free',
-                style: TextStyle(fontSize: 18),
+                church.ticketPrice,
+                style: const TextStyle(fontSize: 18),
               ),
             ),
 
             // Rating
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 'Rating:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -160,14 +190,14 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                '${church.rating ?? 'No rating available'} ⭐',
-                style: TextStyle(fontSize: 18),
+                '${church.rating} ⭐',
+                style: const TextStyle(fontSize: 18),
               ),
             ),
 
             // Image Gallery
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 'Gallery:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -181,8 +211,7 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(church.galleryImages[index] ??
-                        'assets/images/default.jpg'),
+                    child: Image.asset(church.galleryImages[index]),
                   );
                 },
               ),

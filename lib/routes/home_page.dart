@@ -22,9 +22,9 @@ class _HomePageState extends State<HomePage> {
               fontFamily: 'Roboto',
               fontWeight: FontWeight.bold,
               fontSize: 24,
-              color: Colors.white),
+              color: Colors.black),
         ),
-        backgroundColor: Colors.deepPurple, // Mengubah warna background AppBar
+        backgroundColor: Colors.white,
         actions: [
           // Menambahkan AnimatedSwitcher untuk ikon transisi yang halus
           AnimatedSwitcher(
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(
                 isGridView ? Icons.grid_view : Icons.list,
                 size: 28,
-                color: Colors.white, // Warna ikon putih
+                color: Colors.black, // Warna ikon putih
               ),
               onPressed: () {
                 setState(() {
@@ -44,6 +44,34 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+            child: TextField(
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                hintText: 'Search by name',
+                hintStyle: const TextStyle(fontSize: 14),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Colors.amber),
+                ),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  size: 18,
+                ),
+                filled: true,
+                fillColor: Colors.white,
+              ),
+              style: const TextStyle(fontSize: 14),
+            ),
+          ),
+        ),
       ),
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -152,9 +180,8 @@ class FamousChurchesListView extends StatelessWidget {
 }
 
 class FamousChurchesGridView extends StatelessWidget {
-  final int gridCount; // Menentukan jumlah kolom pada grid
+  final int gridCount;
 
-  // Constructor untuk menerima gridCount
   const FamousChurchesGridView({super.key, required this.gridCount});
 
   @override
@@ -169,81 +196,93 @@ class FamousChurchesGridView extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         final church = famousChurches[index];
-        return Card(
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12), // Border radius untuk card
-          ),
-          child: ClipRRect(
-            borderRadius:
-                BorderRadius.circular(12), // Border radius untuk gambar
-            child: GridTile(
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Image.asset(
-                    church.mainImageUrl,
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    color: Colors.black
-                        .withOpacity(0.4), // Overlay gelap di gambar
-                  ),
-                  // Teks di atas gambar
-                  Positioned(
-                    bottom: 10,
-                    left: 10,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          church.name,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 10.0,
-                                color: Colors.black,
-                                offset: Offset(2.0, 2.0),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          '${church.city}, ${church.country}',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.white,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 10.0,
-                                color: Colors.black,
-                                offset: Offset(2.0, 2.0),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.star,
-                                color: Colors.amber, size: 16),
-                            const SizedBox(width: 4),
-                            Text(
-                              '${church.rating} / 5',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    ChurchDetailPage(church: famousChurches[index]),
+              ),
+            );
+          },
+          child: Card(
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.circular(12), // Border radius untuk card
+            ),
+            child: ClipRRect(
+              borderRadius:
+                  BorderRadius.circular(12), // Border radius untuk gambar
+              child: GridTile(
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.asset(
+                      church.mainImageUrl,
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                ],
+                    Container(
+                      color: Colors.black
+                          .withOpacity(0.4), // Overlay gelap di gambar
+                    ),
+                    // Teks di atas gambar
+                    Positioned(
+                      bottom: 10,
+                      left: 10,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            church.name,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Colors.black,
+                                  offset: Offset(2.0, 2.0),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            '${church.city}, ${church.country}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Colors.black,
+                                  offset: Offset(2.0, 2.0),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              const Icon(Icons.star,
+                                  color: Colors.amber, size: 16),
+                              const SizedBox(width: 4),
+                              Text(
+                                '${church.rating} / 5',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

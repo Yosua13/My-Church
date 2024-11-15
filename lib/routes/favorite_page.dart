@@ -1,39 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:proyek_akhir_dicoding/models/church_model.dart';
+import 'package:proyek_akhir_dicoding/routes/church_detail_page.dart';
+import 'package:proyek_akhir_dicoding/provider/favorite_churches_provider.dart';
+import 'package:proyek_akhir_dicoding/routes/home_page.dart';
 
 class FavoritePage extends StatefulWidget {
-  const FavoritePage({super.key});
+  const FavoritePage({Key? key}) : super(key: key);
 
   @override
   State<FavoritePage> createState() => _FavoritePageState();
 }
 
 class _FavoritePageState extends State<FavoritePage> {
+  List<ChurchModel> favoriteChurches = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favorite'),
+        title: const Text('My Favorite Churches'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: <Widget>[
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.notifications_sharp),
-                title: Text('Notification 1'),
-                subtitle: Text('This is a notification'),
-              ),
-            ),
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.notifications_sharp),
-                title: Text('Notification 2'),
-                subtitle: Text('This is a notification'),
-              ),
-            ),
-          ],
-        ),
+      body: Consumer<FavoriteChurchesProvider>(
+        builder: (context, provider, child) {
+          final favoriteChurches = provider.favoriteChurches;
+
+          return favoriteChurches.isEmpty
+              ? const Center(child: Text('No favorite churches'))
+              : ListView.builder(
+                  itemCount: favoriteChurches.length,
+                  itemBuilder: (context, index) {
+                    final church = favoriteChurches[index];
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ChurchDetailPage(church: famousChurches[index]),
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        leading: Image.asset(
+                          church.mainImageUrl,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.cover,
+                        ),
+                        title: Text(church.name),
+                        subtitle: Text('${church.city}, ${church.country}'),
+                        trailing: const Icon(Icons.favorite, color: Colors.red),
+                      ),
+                    );
+                  },
+                );
+        },
       ),
     );
   }

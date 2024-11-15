@@ -14,21 +14,21 @@ class Onboarding extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color(0xFFE7C8EC),
-                Color(0xFFDBADE3),
-                Color(0xFFD8A9E0),
-                Color(0xFFCE9DD6),
-                Color(0xFFCE9DD6),
-                Color(0xFFC391CB),
-                Color(0xFFC391CB),
-                Color(0xFFBA86C3),
-                Color(0xFFB580BE),
-                Color(0xFFAF77B8),
-                Color(0xFFA366AD),
-                Color(0xFF9654A1),
-                Color(0xFF8D4698),
-                Color(0xFF83378F),
-                Color(0xFF782885),
+                Color(0xFFFFE082), // Amber lightest
+                Color(0xFFFFD54F),
+                Color(0xFFFFCA28),
+                Color(0xFFFFC107),
+                Color(0xFFFFB300),
+                Color(0xFFFFA000),
+                Color(0xFFFF8F00),
+                Color(0xFFFF6F00),
+                Color(0xFFF57C00),
+                Color(0xFFEF6C00),
+                Color(0xFFE65100),
+                Color(0xFFDD4B00),
+                Color(0xFFD84315),
+                Color(0xFFBF360C), // Darker amber tone
+                Color(0xFFB71C1C), // Darkest amber shade close to a burnt amber
               ],
               stops: [
                 0.02,
@@ -82,7 +82,6 @@ class Onboarding extends StatelessWidget {
                 right: 0,
                 child: Image.asset(
                   'assets/images/plant.png',
-                  
                   fit: BoxFit.cover,
                   width: MediaQuery.of(context).size.width,
                 ),
