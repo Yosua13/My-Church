@@ -24,46 +24,47 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height  ,
+          height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFFFE082), // Amber lightest
-              Color(0xFFFFD54F),
-              Color(0xFFFFCA28),
-              Color(0xFFFFC107),
-              Color(0xFFFFB300),
-              Color(0xFFFFA000),
-              Color(0xFFFF8F00),
-              Color(0xFFFF6F00),
-              Color(0xFFF57C00),
-              Color(0xFFEF6C00),
-              Color(0xFFE65100),
-              Color(0xFFDD4B00),
-              Color(0xFFD84315),
-              Color(0xFFBF360C), // Darker amber tone
-              Color(0xFFB71C1C), // Darkest amber shade close to a burnt amber
-            ],
-            stops: [
-              0.02,
-              0.07,
-              0.14,
-              0.21,
-              0.29,
-              0.36,
-              0.43,
-              0.47,
-              0.50,
-              0.57,
-              0.64,
-              0.71,
-              0.79,
-              0.86,
-              1.0,
-            ],
-          )),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFFFFE082), // Amber lightest
+                Color(0xFFFFD54F),
+                Color(0xFFFFCA28),
+                Color(0xFFFFC107),
+                Color(0xFFFFB300),
+                Color(0xFFFFA000),
+                Color(0xFFFF8F00),
+                Color(0xFFFF6F00),
+                Color(0xFFF57C00),
+                Color(0xFFEF6C00),
+                Color(0xFFE65100),
+                Color(0xFFDD4B00),
+                Color(0xFFD84315),
+                Color(0xFFBF360C), // Darker amber tone
+                Color(0xFFB71C1C), // Darkest amber shade close to a burnt amber
+              ],
+              stops: [
+                0.02,
+                0.07,
+                0.14,
+                0.21,
+                0.29,
+                0.36,
+                0.43,
+                0.47,
+                0.50,
+                0.57,
+                0.64,
+                0.71,
+                0.79,
+                0.86,
+                1.0,
+              ],
+            ),
+          ),
           padding: const EdgeInsets.only(top: 54, right: 16, left: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,10 +157,18 @@ class _LoginPageState extends State<LoginPage> {
 
                             if (isLoginSuccessful) {
                               // Navigate to HomePage if login is successful
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MyChurchApp()),
+                              showSuccessDialog(context, 'Login Success',
+                                  'Welcome to My Church! God Bless You :)');
+                              Future.delayed(
+                                const Duration(milliseconds: 1500),
+                                () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MyChurchApp()),
+                                  );
+                                },
                               );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -262,6 +271,26 @@ class _LoginPageState extends State<LoginPage> {
         ),
         validator: validator,
       ),
+    );
+  }
+
+  void showSuccessDialog(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Tutup dialog
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

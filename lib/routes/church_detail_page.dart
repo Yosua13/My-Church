@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyek_akhir_dicoding/models/church_model.dart';
 import 'package:proyek_akhir_dicoding/provider/favorite_churches_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChurchDetailPage extends StatefulWidget {
   final ChurchModel church;
@@ -27,6 +28,7 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
   @override
   Widget build(BuildContext context) {
     final church = widget.church;
+    final Uri uri = Uri.parse(church.gpsLink);
 
     return Scaffold(
       appBar: AppBar(
@@ -118,15 +120,24 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                onTap: () {
-                  print('Opening GPS Link: ${church.gpsLink}');
+                onTap: () async {
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri, mode: LaunchMode.externalApplication);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:
+                            Text('Tidak dapat membuka link: $church.gpsLink'),
+                      ),
+                    );
+                  }
                 },
                 child: Text(
                   church.gpsLink,
                   style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline),
+                    fontSize: 18,
+                    color: Colors.blue,
+                  ),
                 ),
               ),
             ),
