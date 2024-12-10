@@ -10,7 +10,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String searchQuery = '';
+  List<ChurchModel> searchResult = [];
   bool isGridView = false;
+
+  void searchChurches(String query) {
+    final results = famousChurches
+        .where(
+            (church) => church.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+    setState(() {
+      searchQuery = query;
+      searchResult = results;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    searchResult = famousChurches;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +44,7 @@ class _HomePageState extends State<HomePage> {
               fontSize: 24,
               color: Colors.black),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFFFE082),
         actions: [
           // Menambahkan AnimatedSwitcher untuk ikon transisi yang halus
           AnimatedSwitcher(
@@ -49,6 +69,7 @@ class _HomePageState extends State<HomePage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
             child: TextField(
+              onChanged: searchChurches,
               decoration: InputDecoration(
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
@@ -76,26 +97,20 @@ class _HomePageState extends State<HomePage> {
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
         if (isGridView == false) {
-          return const FamousChurchesGridView(gridCount: 2);
+          return famousChurchesGridView(2);
         } else {
-          return const FamousChurchesListView();
+          return famousChurchesListView();
         }
       }),
     );
   }
-}
 
-class FamousChurchesListView extends StatelessWidget {
-  // Constructor untuk menerima data famousChurches
-  const FamousChurchesListView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget famousChurchesListView() {
     return ListView.builder(
-      itemCount: famousChurches.length,
+      itemCount: searchResult.length,
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) {
-        final church = famousChurches[index];
+        final church = searchResult[index];
         return Card(
           margin: const EdgeInsets.all(12.0),
           elevation: 5,
@@ -108,7 +123,7 @@ class FamousChurchesListView extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      ChurchDetailPage(church: famousChurches[index]),
+                      ChurchDetailPage(church: searchResult[index]),
                 ),
               );
             },
@@ -177,17 +192,10 @@ class FamousChurchesListView extends StatelessWidget {
       },
     );
   }
-}
 
-class FamousChurchesGridView extends StatelessWidget {
-  final int gridCount;
-
-  const FamousChurchesGridView({super.key, required this.gridCount});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget famousChurchesGridView(int gridCount) {
     return GridView.builder(
-      itemCount: famousChurches.length,
+      itemCount: searchResult.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount:
             gridCount, // Menggunakan gridCount untuk menentukan jumlah kolom
@@ -195,14 +203,14 @@ class FamousChurchesGridView extends StatelessWidget {
         mainAxisSpacing: 8.0,
       ),
       itemBuilder: (context, index) {
-        final church = famousChurches[index];
+        final church = searchResult[index];
         return InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    ChurchDetailPage(church: famousChurches[index]),
+                    ChurchDetailPage(church: searchResult[index]),
               ),
             );
           },

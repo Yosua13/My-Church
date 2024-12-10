@@ -10,10 +10,10 @@ class ChurchDetailPage extends StatefulWidget {
   const ChurchDetailPage({super.key, required this.church});
 
   @override
-  State<ChurchDetailPage> createState() => _ChurchDetailPageState();
+  State<ChurchDetailPage> createState() => ChurchDetailPageState();
 }
 
-class _ChurchDetailPageState extends State<ChurchDetailPage> {
+class ChurchDetailPageState extends State<ChurchDetailPage> {
   late bool isFavorite = false;
 
   @override
@@ -32,6 +32,7 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFFFFE082),
         title: const Text('Details Church'),
         actions: [
           IconButton(
@@ -68,6 +69,8 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
+
+            cardData(dataModel: church.name, hintText: 'Name'),
 
             // Location Details (City, Province, Country)
             Padding(
@@ -229,6 +232,40 @@ class _ChurchDetailPageState extends State<ChurchDetailPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget cardData(
+      {String? dataModel,
+      String? hintText,
+      double? fontSize = 16,
+      String? fontWeight}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Expanded(
+            flex: 3,
+            child: Text(
+              "$hintText",
+              style: TextStyle(
+                fontSize: fontSize,
+                letterSpacing: 1.0,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 7,
+            child: Text(
+              ': $dataModel',
+              style: TextStyle(
+                fontSize: fontSize,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -19,6 +19,7 @@ class _FavoritePageState extends State<FavoritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFFFFE082),
         title: const Text('My Favorite Churches'),
       ),
       body: Consumer<FavoriteChurchesProvider>(

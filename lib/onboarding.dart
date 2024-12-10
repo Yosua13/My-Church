@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:proyek_akhir_dicoding/routes/login_page.dart';
+import 'package:proyek_akhir_dicoding/routes/register_page.dart';
 
 class Onboarding extends StatelessWidget {
   const Onboarding({super.key});
@@ -49,75 +51,85 @@ class Onboarding extends StatelessWidget {
               ],
             ),
           ),
-          child: Stack(
-            children: [
-              const Positioned(
-                top: 150,
-                left: 50,
-                right: 50,
-                child: Text(
-                  'Yosua Plant',
-                  style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Fontserrat',
-                      color: Color(0xFF028A04)),
+          // child: Stack(
+          //   children: [
+          //     const Positioned(
+          //       top: 150,
+          //       left: 50,
+          //       right: 50,
+          //       child: Text(
+          //         'My Church',
+          //         style: TextStyle(
+          //             fontSize: 40,
+          //             fontWeight: FontWeight.w700,
+          //             fontFamily: 'Fontserrat',
+          //             color: Color(0xFF028A04)),
+          //       ),
+          //     ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'My Church',
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Fontserrat',
+                  color: Colors.black,
                 ),
               ),
-              const Positioned(
-                top: 200,
-                right: 50,
-                child: Text(
-                  'Plant Net',
-                  style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Fontserrat',
-                      color: Color(0xFF028A04)),
-                ),
+              SizedBox(
+                height: 20,
               ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Image.asset(
-                  'assets/images/plant.png',
-                  fit: BoxFit.cover,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-              Column(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  const Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  ),
+                children: [
                   ElevatedButton(
                     onPressed: () {
-                      print('Login button pressed');
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFFFFE082),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 15),
                     ),
                     child: const Text(
                       'Login',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(width: 30),
                   ElevatedButton(
                     onPressed: () {
-                      print('Registration button pressed');
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterPage(),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFFFFE082),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 15),
                     ),
                     child: const Text(
                       'Registration',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.blueGrey,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],

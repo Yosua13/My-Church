@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:proyek_akhir_dicoding/onboarding.dart';
 import 'package:proyek_akhir_dicoding/provider/favorite_churches_provider.dart';
 import 'package:proyek_akhir_dicoding/provider/user_provider.dart';
 import 'package:proyek_akhir_dicoding/routes/login_page.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: const Onboarding(),
     );
   }
 }

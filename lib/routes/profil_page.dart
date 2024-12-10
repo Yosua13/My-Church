@@ -58,6 +58,10 @@ class _MyProfilPageState extends State<ProfilPage> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text("Apakah Anda ingin Keluar"),
+                    backgroundColor: Color(0xFFFFE082),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
                     actions: [
                       TextButton(
                         child: const Text(
