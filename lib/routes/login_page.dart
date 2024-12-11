@@ -69,9 +69,8 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
 
-              // Title and Subtitle Text
               const Text(
                 "Join Churchers",
                 style: TextStyle(
@@ -190,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
 
               // Register Link with TextSpan
               const SizedBox(
-                height: 50,
+                height: 15,
               ),
               Center(
                 child: RichText(
@@ -221,9 +220,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 64,
-              )
             ],
           ),
         ),
@@ -273,26 +269,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-  // void showSuccessDialog(BuildContext context, String title, String message) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text(title),
-  //         content: Text(message),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop(); // Tutup dialog
-  //             },
-  //             child: const Text('OK'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
   void showSuccessDialog(BuildContext context, String title, String message) {
     showDialog(

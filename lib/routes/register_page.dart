@@ -77,9 +77,8 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
 
-              // Title and Subtitle Text
               const Text(
                 "Create Account",
                 style: TextStyle(
@@ -205,14 +204,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                 email: _emailController.text,
                                 password: _passwordController.text,
                               );
-                              // Save user data using UserProvider
                               Provider.of<UserProvider>(context, listen: false)
                                   .registerUser(newUser);
 
                               showSuccessDialog(context, 'Register Success',
                                   'Congratulations, You have successfully registred');
 
-                              // Navigate to the login page after registration
                               Future.delayed(const Duration(milliseconds: 1500),
                                   () {
                                 Navigator.of(context).pushAndRemoveUntil(
@@ -237,7 +234,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
               // Register Link with TextSpan
               const SizedBox(
-                height: 50,
+                height: 15,
               ),
               Center(
                 child: RichText(
@@ -268,9 +265,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 100,
-              )
             ],
           ),
         ),

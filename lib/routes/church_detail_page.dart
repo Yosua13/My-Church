@@ -57,7 +57,6 @@ class ChurchDetailPageState extends State<ChurchDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Display main image of the church
             Image.asset(church.mainImageUrl),
 
             // Church name
@@ -70,142 +69,119 @@ class ChurchDetailPageState extends State<ChurchDetailPage> {
               ),
             ),
 
-            cardData(dataModel: church.name, hintText: 'Name'),
+            cardData(
+              dataModel: church.locationDetails,
+              hintText: 'Location',
+              fontWeight: FontWeight.bold,
+            ),
 
-            // Location Details (City, Province, Country)
+            cardData(
+              dataModel: church.address,
+              hintText: 'Address',
+              fontWeight: FontWeight.bold,
+            ),
+
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Location:',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${church.city}, ${church.province}, ${church.country}',
-                    style: const TextStyle(
-                        fontSize: 18, fontStyle: FontStyle.italic),
-                  ),
-                ],
-              ),
-            ),
-
-            // Address
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Address:',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    church.address,
-                    style: const TextStyle(
-                        fontSize: 18, fontStyle: FontStyle.italic),
-                  ),
-                ],
-              ),
-            ),
-
-            // GPS link
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'GPS Link:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () async {
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri, mode: LaunchMode.externalApplication);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content:
-                            Text('Tidak dapat membuka link: $church.gpsLink'),
+                children: <Widget>[
+                  const Expanded(
+                    flex: 3,
+                    child: Text(
+                      'GPS Link',
+                      style: TextStyle(
+                        fontSize: 16,
+                        letterSpacing: 1.0,
                       ),
-                    );
-                  }
-                },
-                child: Text(
-                  church.gpsLink,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.blue,
+                    ),
                   ),
-                ),
+                  Expanded(
+                    flex: 7,
+                    child: GestureDetector(
+                      onTap: () async {
+                        final Uri uri = Uri.parse(church.gpsLink);
+                        if (await canLaunchUrl(uri)) {
+                          await launchUrl(
+                            uri,
+                            mode: LaunchMode
+                                .externalApplication, // Buka di aplikasi eksternal
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Tidak dapat membuka link: ${church.gpsLink}',
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      child: Text(
+                        church.gpsLink,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.blue,
+                          decoration: TextDecoration
+                              .underline, // Menambahkan garis bawah
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
-            // History Section
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'History:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                church.history,
-                style: const TextStyle(fontSize: 16),
-              ),
+            cardData(
+              dataModel: church.history,
+              hintText: 'History',
+              fontWeight: FontWeight.bold,
             ),
 
-            // Opening Hours
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Opening Hours:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                church.openingHours,
-                style: const TextStyle(fontSize: 18),
-              ),
+            cardData(
+              dataModel: church.openingHours,
+              hintText: 'Opening Hours',
+              fontWeight: FontWeight.bold,
             ),
 
-            // Ticket Price
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Ticket Price:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                church.ticketPrice,
-                style: const TextStyle(fontSize: 18),
-              ),
+            cardData(
+              dataModel: church.ticketPrice,
+              hintText: 'Ticket Price',
+              fontWeight: FontWeight.bold,
             ),
 
-            // Rating
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Rating:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+            cardData(
+              dataModel: church.address,
+              hintText: 'Address',
+              fontWeight: FontWeight.bold,
             ),
+
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                '${church.rating} ⭐',
-                style: const TextStyle(fontSize: 18),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const Expanded(
+                    flex: 3,
+                    child: Text(
+                      "Rating",
+                      style: TextStyle(
+                        fontSize: 16,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 7,
+                    child: Text(
+                      ': ${church.rating}⭐',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
@@ -224,8 +200,20 @@ class ChurchDetailPageState extends State<ChurchDetailPage> {
                 itemCount: church.galleryImages.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(church.galleryImages[index]),
+                    padding: const EdgeInsets.only(
+                      left: 8,
+                      right: 8,
+                      bottom: 8,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12.0),
+                      child: Image.asset(
+                        church.galleryImages[index],
+                        fit: BoxFit.fill,
+                        width: 250,
+                        height: 100,
+                      ),
+                    ),
                   );
                 },
               ),
@@ -240,7 +228,7 @@ class ChurchDetailPageState extends State<ChurchDetailPage> {
       {String? dataModel,
       String? hintText,
       double? fontSize = 16,
-      String? fontWeight}) {
+      FontWeight? fontWeight}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       child: Row(
@@ -262,6 +250,7 @@ class ChurchDetailPageState extends State<ChurchDetailPage> {
               ': $dataModel',
               style: TextStyle(
                 fontSize: fontSize,
+                fontWeight: fontWeight,
               ),
             ),
           ),

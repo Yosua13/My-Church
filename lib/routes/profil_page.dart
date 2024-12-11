@@ -197,6 +197,7 @@ class _MyProfilPageState extends State<ProfilPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
+                            backgroundColor: Color(0xFFFFE082),
                             title: const Text(
                                 "Apakah Anda ingin melakukan perubahan?"),
                             actions: [

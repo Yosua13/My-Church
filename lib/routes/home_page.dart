@@ -316,7 +316,7 @@ final List<ChurchModel> famousChurches = [
     ],
     locationDetails: 'Vatican City, Vatican City',
     address: 'Piazza San Pietro, 00120 Vatican City',
-    gpsLink: 'https://goo.gl/maps/R8oZpSfYFNUiXRYm7',
+    gpsLink: 'https://maps.app.goo.gl/Pr9yTjnRo9vpDyru7',
     history:
         'Built in the 16th century, St. Peter\'s Basilica was designed by Donato Bramante, Michelangelo, Carlo Maderno, and Gian Lorenzo Bernini. It\'s regarded as one of the holiest Catholic shrines and one of the largest churches in the world.',
     publicFacilities: ['Toilet', 'Souvenir Shop', 'Cafe'],
@@ -341,7 +341,7 @@ final List<ChurchModel> famousChurches = [
     ],
     locationDetails: 'Barcelona, Catalonia, Spain',
     address: 'Carrer de Mallorca, 401, 08013 Barcelona, Spain',
-    gpsLink: 'https://goo.gl/maps/8D5MfWEDwBm',
+    gpsLink: 'https://maps.app.goo.gl/s7RZA4CsWc2ocGTn9',
     history:
         'Construction began in 1882 under architect Francisco de Paula del Villar, but Gaudí took over a year later. Still under construction, the Sagrada Familia remains an icon of architectural ingenuity.',
     publicFacilities: ['Toilet', 'Cafe', 'Audio Guides'],
@@ -366,7 +366,7 @@ final List<ChurchModel> famousChurches = [
     ],
     locationDetails: 'Paris, Île-de-France, France',
     address: '6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris, France',
-    gpsLink: 'https://goo.gl/maps/T5D1m84RJrH2',
+    gpsLink: 'https://maps.app.goo.gl/nzXyd4yvyw4pN1t17',
     history:
         'Construction began in 1163 and was largely completed by 1260. Over the centuries, it has witnessed numerous historical events, including the coronation of Napoleon.',
     publicFacilities: ['Gift Shop', 'Restrooms'],
@@ -391,7 +391,7 @@ final List<ChurchModel> famousChurches = [
     ],
     locationDetails: 'London, England, United Kingdom',
     address: '20 Deans Yd, London SW1P 3PA, United Kingdom',
-    gpsLink: 'https://goo.gl/maps/Uv2QxR29syE2',
+    gpsLink: 'https://maps.app.goo.gl/6JWHcY3W7oF54n3K7',
     history:
         'Founded in 960, it has served as the site of every British coronation since William the Conqueror in 1066.',
     publicFacilities: ['Cafe', 'Gift Shop', 'Restrooms'],
@@ -416,7 +416,7 @@ final List<ChurchModel> famousChurches = [
     ],
     locationDetails: 'Moscow, Russia',
     address: 'Red Square, Moscow, Russia, 109012',
-    gpsLink: 'https://goo.gl/maps/Ds7m45XJ7FE2',
+    gpsLink: 'https://maps.app.goo.gl/6AgL3RaFycuYy2DC9',
     history:
         'Completed in 1561 by Tsar Ivan the Terrible to commemorate his military victories, it is a symbol of Russia and Orthodox Christianity.',
     publicFacilities: ['Gift Shop', 'Restrooms'],
@@ -441,7 +441,7 @@ final List<ChurchModel> famousChurches = [
     ],
     locationDetails: 'Milan, Lombardy, Italy',
     address: 'Piazza del Duomo, 20122 Milano MI, Italy',
-    gpsLink: 'https://goo.gl/maps/dXPz8pj1K5r',
+    gpsLink: 'https://maps.app.goo.gl/fnHo1NuBDTqjodme9',
     history:
         'Started in 1386 and took nearly six centuries to complete, it reflects Gothic, Renaissance, and Baroque styles.',
     publicFacilities: ['Toilet', 'Gift Shop', 'Cafe'],
@@ -466,7 +466,7 @@ final List<ChurchModel> famousChurches = [
     ],
     locationDetails: 'Jerusalem, Israel',
     address: 'Christian Quarter, Jerusalem, Israel',
-    gpsLink: 'https://goo.gl/maps/fE3JnK5qrrR2',
+    gpsLink: 'https://maps.app.goo.gl/PzgMGwLePgQjLq7r7',
     history:
         'Built in the 4th century by Emperor Constantine, the church is one of the holiest sites in Christianity.',
     publicFacilities: ['Restrooms'],
@@ -491,7 +491,7 @@ final List<ChurchModel> famousChurches = [
     ],
     locationDetails: 'Seville, Andalusia, Spain',
     address: 'Av. de la Constitución, s/n, 41004 Sevilla, Spain',
-    gpsLink: 'https://goo.gl/maps/9yX7BdntdZL2',
+    gpsLink: 'https://maps.app.goo.gl/jgQfjRSaSF6pVSTL6',
     history:
         'Constructed from 1401 to 1506, it was built to demonstrate the wealth of the city after the Reconquista.',
     publicFacilities: ['Gift Shop', 'Restrooms'],
@@ -515,7 +515,7 @@ final List<ChurchModel> famousChurches = [
     ],
     locationDetails: 'Venice, Veneto, Italy',
     address: 'Piazza San Marco, 328, 30100 Venezia VE, Italy',
-    gpsLink: 'https://goo.gl/maps/F3BoB3oh5N32',
+    gpsLink: 'https://maps.app.goo.gl/7wY5N1mndZa9hKBy6',
     history:
         'Built in 1094, it served as the Doge\'s private chapel until it became the city\'s cathedral in 1807.',
     publicFacilities: ['Toilet', 'Gift Shop', 'Audio Guides'],
@@ -540,7 +540,7 @@ final List<ChurchModel> famousChurches = [
     ],
     locationDetails: 'New York City, New York, United States',
     address: '5th Ave, New York, NY 10022, United States',
-    gpsLink: 'https://goo.gl/maps/sM9Xv9yY1kL2',
+    gpsLink: 'https://maps.app.goo.gl/5o4ZKwR4SJmBxVvXA',
     history:
         'Construction of St. Patrick\'s Cathedral began in 1858 and was completed in 1878. It serves as the largest Catholic cathedral in the United States and is one of New York\'s most prominent landmarks. The cathedral is known for its grandeur and impressive Neo-Gothic architecture.',
     publicFacilities: ['Restrooms', 'Gift Shop', 'Cafe', 'Tour Guides'],
