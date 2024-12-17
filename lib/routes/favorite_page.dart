@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyek_akhir/models/church_model.dart';
 import 'package:proyek_akhir/provider/favorite_churches_provider.dart';
-import 'package:proyek_akhir/routes/church_detail_page.dart'; 
+import 'package:proyek_akhir/routes/church_detail_page.dart';
 
 class FavoritePage extends StatefulWidget {
-  const FavoritePage({Key? key}) : super(key: key);
+  const FavoritePage({super.key});
 
   @override
   State<FavoritePage> createState() => _FavoritePageState();
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  List<ChurchModel> favoriteChurches = [];
+  List<ChurchModel> _favoriteChurches = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFE082),
+        backgroundColor: const Color(0xFFFFE082),
         title: const Text('My Favorite Churches'),
       ),
       body: Consumer<FavoriteChurchesProvider>(
