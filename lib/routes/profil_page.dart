@@ -41,6 +41,19 @@ class _MyProfilPageState extends State<ProfilPage> {
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth >= 800) {
+          return _buildWebLayout();
+        } else {
+          return _buildMobileLayout();
+        }
+      },
+    );
+  }
+
+  /// Mobile layout
+  Widget _buildMobileLayout() {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -52,13 +65,13 @@ class _MyProfilPageState extends State<ProfilPage> {
               color: Colors.red,
             ),
             onPressed: () {
-              // Show confirmation dialog
+              /// Show confirmation dialog
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text("Apakah Anda ingin Keluar"),
-                    backgroundColor: Color(0xFFFFE082),
+                    backgroundColor: const Color(0xFFFFE082),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.0),
                     ),
@@ -99,7 +112,10 @@ class _MyProfilPageState extends State<ProfilPage> {
           ),
         ],
       ),
-      body: Padding(
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white, // Set background color to white for mobile
+        ),
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -111,7 +127,7 @@ class _MyProfilPageState extends State<ProfilPage> {
                 controller: _usernameController,
                 decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.amber),
+                    borderSide: BorderSide(color: Colors.amber),
                   ),
                   labelText: 'Username',
                   border: OutlineInputBorder(),
@@ -125,13 +141,13 @@ class _MyProfilPageState extends State<ProfilPage> {
               ),
               const SizedBox(height: 16),
 
-              // Email Field
+              /// Email Field
               TextFormField(
                 controller: _emailController,
                 readOnly: true,
                 decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.amber),
+                    borderSide: BorderSide(color: Colors.amber),
                   ),
                   labelText: 'Email',
                   border: OutlineInputBorder(),
@@ -149,13 +165,13 @@ class _MyProfilPageState extends State<ProfilPage> {
               ),
               const SizedBox(height: 16),
 
-              // Password Field
+              /// Password Field
               TextFormField(
                 controller: _passwordController,
                 obscureText: !_isPasswordVisible,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.amber),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.amber),
                   ),
                   labelText: 'Password',
                   border: const OutlineInputBorder(),
@@ -181,7 +197,7 @@ class _MyProfilPageState extends State<ProfilPage> {
               ),
               const SizedBox(height: 48),
 
-              // Save Button
+              /// Save Button
               SizedBox(
                 width: double.infinity, // Set button to full width
                 child: ElevatedButton(
@@ -197,7 +213,7 @@ class _MyProfilPageState extends State<ProfilPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            backgroundColor: Color(0xFFFFE082),
+                            backgroundColor: const Color(0xFFFFE082),
                             title: const Text(
                                 "Apakah Anda ingin melakukan perubahan?"),
                             actions: [
@@ -257,6 +273,256 @@ class _MyProfilPageState extends State<ProfilPage> {
               const SizedBox(height: 16),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  /// Web layout
+  Widget _buildWebLayout() {
+    return Center(
+      child: Container(
+        width: 600,
+        height: 600,
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.0),
+          border: Border.all(
+            width: 1.0,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            ListTile(
+              title: const Text(
+                'Profil',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              trailing: IconButton(
+                icon: const Icon(
+                  Icons.logout,
+                  size: 28,
+                  color: Colors.red,
+                ),
+                onPressed: () {
+                  /// Show confirmation dialog
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Apakah Anda ingin Keluar"),
+                        backgroundColor: const Color(0xFFFFE082),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        actions: [
+                          TextButton(
+                            child: const Text(
+                              "Tidak",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: const Text(
+                              "Ya",
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              Provider.of<UserProvider>(context, listen: false)
+                                  .logoutUser();
+                              Navigator.of(context).pop();
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginPage(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  // Username Field
+                  TextFormField(
+                    controller: _usernameController,
+                    decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.amber),
+                      ),
+                      labelText: 'Username',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a username';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+
+                  /// Email Field
+                  TextFormField(
+                    controller: _emailController,
+                    readOnly: true,
+                    decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.amber),
+                      ),
+                      labelText: 'Email',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email address';
+                      }
+                      if (!RegExp(r"^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value)) {
+                        return 'Please enter a valid email address';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+
+                  /// Password Field
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: !_isPasswordVisible,
+                    decoration: InputDecoration(
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.amber),
+                      ),
+                      labelText: 'Password',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a password';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 48),
+
+                  /// Save Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          /// Show confirmation dialog
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: const Color(0xFFFFE082),
+                                title: const Text(
+                                    "Apakah Anda ingin melakukan perubahan?"),
+                                actions: [
+                                  TextButton(
+                                    child: const Text(
+                                      "Tidak",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: const Text(
+                                      "Ya",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      /// Update user data in the provider
+                                      Provider.of<UserProvider>(context,
+                                              listen: false)
+                                          .updateUser(
+                                        _usernameController.text,
+                                        _emailController.text,
+                                        _passwordController.text,
+                                      );
+
+                                      /// Close dialog
+                                      Navigator.of(context).pop();
+
+                                      // Show success message
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Profile updated!')),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
+                      child: const Text(
+                        'Save Changes',
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
