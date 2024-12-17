@@ -70,7 +70,7 @@ class Onboarding extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
+              const Text(
                 'My Church',
                 style: TextStyle(
                   fontSize: 40,
@@ -79,7 +79,7 @@ class Onboarding extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -95,7 +95,7 @@ class Onboarding extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFFE082),
+                      backgroundColor: const Color(0xFFFFE082),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 15),
                     ),
@@ -119,7 +119,7 @@ class Onboarding extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFFE082),
+                      backgroundColor: const Color(0xFFFFE082),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 15),
                     ),
