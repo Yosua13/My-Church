@@ -6,13 +6,13 @@ class UserProvider with ChangeNotifier {
 
   User? get user => _user;
 
-  // Register the user
+  /// Register the user
   void registerUser(User newUser) {
     _user = newUser;
     notifyListeners();
   }
 
-  // Update user info
+  /// Update user info
   void updateUser(String username, String email, String password) {
     _user = User(
       username: username,
@@ -22,7 +22,7 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Login the user
+  ///Login the user
   bool loginUser(String email, String password) {
     if (_user != null && _user!.email == email && _user!.password == password) {
       return true;
@@ -30,7 +30,7 @@ class UserProvider with ChangeNotifier {
     return false;
   }
 
-  // Logout user
+  /// Logout user
   void logoutUser() {
     _user = User(username: '', email: '', password: '');
     notifyListeners();
