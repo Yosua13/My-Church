@@ -22,55 +22,131 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFFFFE082), // Amber lightest
-                Color(0xFFFFD54F),
-                Color(0xFFFFCA28),
-                Color(0xFFFFC107),
-                Color(0xFFFFB300),
-                Color(0xFFFFA000),
-                Color(0xFFFF8F00),
-                Color(0xFFFF6F00),
-                Color(0xFFF57C00),
-                Color(0xFFEF6C00),
-                Color(0xFFE65100),
-                Color(0xFFDD4B00),
-                Color(0xFFD84315),
-                Color(0xFFBF360C), // Darker amber tone
-                Color(0xFFB71C1C), // Darkest amber shade close to a burnt amber
-              ],
-              stops: [
-                0.02,
-                0.07,
-                0.14,
-                0.21,
-                0.29,
-                0.36,
-                0.43,
-                0.47,
-                0.50,
-                0.57,
-                0.64,
-                0.71,
-                0.79,
-                0.86,
-                1.0,
-              ],
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFFFE082),
+              Color(0xFFFFD54F),
+              Color(0xFFFFCA28),
+              Color(0xFFFFC107),
+              Color(0xFFFFB300),
+              Color(0xFFFFA000),
+              Color(0xFFFF8F00),
+              Color(0xFFFF6F00),
+              Color(0xFFF57C00),
+              Color(0xFFEF6C00),
+              Color(0xFFE65100),
+              Color(0xFFDD4B00),
+              Color(0xFFD84315),
+              Color(0xFFBF360C),
+              Color(0xFFB71C1C),
+            ],
+            stops: [
+              0.02,
+              0.07,
+              0.14,
+              0.21,
+              0.29,
+              0.36,
+              0.43,
+              0.47,
+              0.50,
+              0.57,
+              0.64,
+              0.71,
+              0.79,
+              0.86,
+              1.0,
+            ],
           ),
-          padding: const EdgeInsets.only(top: 54, right: 16, left: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(height: 16),
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth >= 800) {
+              return _buildWebLayout();
+            } else {
+              return _buildMobileLayout();
+            }
+          },
+        ),
+      ),
+    );
+  }
 
+  Widget _buildMobileLayout() {
+    return SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFFFE082),
+              Color(0xFFFFD54F),
+              Color(0xFFFFCA28),
+              Color(0xFFFFC107),
+              Color(0xFFFFB300),
+              Color(0xFFFFA000),
+              Color(0xFFFF8F00),
+              Color(0xFFFF6F00),
+              Color(0xFFF57C00),
+              Color(0xFFEF6C00),
+              Color(0xFFE65100),
+              Color(0xFFDD4B00),
+              Color(0xFFD84315),
+              Color(0xFFBF360C),
+              Color(0xFFB71C1C),
+            ],
+            stops: [
+              0.02,
+              0.07,
+              0.14,
+              0.21,
+              0.29,
+              0.36,
+              0.43,
+              0.47,
+              0.50,
+              0.57,
+              0.64,
+              0.71,
+              0.79,
+              0.86,
+              1.0,
+            ],
+          ),
+        ),
+        padding: const EdgeInsets.only(top: 54, right: 16, left: 16),
+        child: _buildFormContent(),
+      ),
+    );
+  }
+
+  Widget _buildWebLayout() {
+    return Center(
+      child: Container(
+        width: 600,
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
               const Text(
                 "Join Churchers",
                 style: TextStyle(
@@ -86,143 +162,138 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 32),
-
-              // Login Form
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    // Email Field
-                    textField(
-                      controller: _emailController,
-                      hint: 'Enter your email address',
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email address';
-                        }
-                        if (!RegExp(r"^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(value)) {
-                          return 'Please enter a valid email address';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Password Field
-                    textField(
-                      controller: _passwordController,
-                      hint: 'Enter your password',
-                      obscureText: !_isPasswordVisible,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _isPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _isPasswordVisible = !_isPasswordVisible;
-                          });
-                        },
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 48),
-
-                    // Login Button
-                    SizedBox(
-                      height: 50,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF584200),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            bool isLoginSuccessful = Provider.of<UserProvider>(
-                                    context,
-                                    listen: false)
-                                .loginUser(_emailController.text,
-                                    _passwordController.text);
-
-                            if (isLoginSuccessful) {
-                              // Navigate to HomePage if login is successful
-                              showSuccessDialog(context, 'Login Success',
-                                  'Welcome to My Church! God Bless You :)');
-                              Future.delayed(
-                                const Duration(milliseconds: 1500),
-                                () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const MyChurchApp()),
-                                  );
-                                },
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Invalid credentials')),
-                              );
-                            }
-                          }
-                        },
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              // Register Link with TextSpan
-              const SizedBox(
-                height: 15,
-              ),
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    text: "Don't have an account? ",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: "Register",
-                        style: const TextStyle(
-                          color: Color(0xFFFFCE3C),
-                          fontWeight: FontWeight.bold,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            // Navigate to RegisterPage
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const RegisterPage()),
-                            );
-                          },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              _buildFormContent(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildFormContent() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          // Email Field
+          textField(
+            controller: _emailController,
+            hint: 'Enter your email address',
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email address';
+              }
+              if (!RegExp(r"^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                  .hasMatch(value)) {
+                return 'Please enter a valid email address';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+
+          // Password Field
+          textField(
+            controller: _passwordController,
+            hint: 'Enter your password',
+            obscureText: !_isPasswordVisible,
+            suffixIcon: IconButton(
+              icon: Icon(
+                _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isPasswordVisible = !_isPasswordVisible;
+                });
+              },
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 48),
+
+          // Login Button
+          SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF584200),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  bool isLoginSuccessful =
+                      Provider.of<UserProvider>(context, listen: false)
+                          .loginUser(
+                              _emailController.text, _passwordController.text);
+
+                  if (isLoginSuccessful) {
+                    // Navigate to HomePage if login is successful
+                    showSuccessDialog(context, 'Login Success',
+                        'Welcome to My Church! God Bless You :)');
+                    Future.delayed(
+                      const Duration(milliseconds: 1500),
+                      () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyChurchApp()),
+                        );
+                      },
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Invalid credentials')),
+                    );
+                  }
+                }
+              },
+              child: const Text(
+                'Login',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ),
+          ),
+          const SizedBox(height: 15),
+
+          // Register Link with TextSpan
+          Center(
+            child: RichText(
+              text: TextSpan(
+                text: "Don't have an account? ",
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+                children: [
+                  TextSpan(
+                    text: "Register",
+                    style: const TextStyle(
+                      color: Color(0xFFFFCE3C),
+                      fontWeight: FontWeight.bold,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        // Navigate to RegisterPage
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegisterPage()),
+                        );
+                      },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -276,14 +347,14 @@ class _LoginPageState extends State<LoginPage> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         // Timer untuk menutup dialog setelah 1 detik
-        Future.delayed(Duration(seconds: 1), () {
+        Future.delayed(const Duration(seconds: 1), () {
           if (Navigator.of(context).canPop()) {
             Navigator.of(context).pop();
           }
         });
 
         return AlertDialog(
-          backgroundColor: Color(0xFFFFE082),
+          backgroundColor: const Color(0xFFFFE082),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
