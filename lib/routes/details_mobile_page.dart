@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyek_akhir/models/church_model.dart';
 import 'package:proyek_akhir/provider/favorite_churches_provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class DetailsMobilePage extends StatefulWidget {
   final ChurchModel church;
@@ -100,22 +100,22 @@ class DetailsMobilePageState extends State<DetailsMobilePage> {
                     flex: 7,
                     child: GestureDetector(
                       onTap: () async {
-                        final Uri uri = Uri.parse(church.gpsLink);
-                        if (await canLaunchUrl(uri)) {
-                          await launchUrl(
-                            uri,
-                            mode: LaunchMode
-                                .externalApplication, // Buka di aplikasi eksternal
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Tidak dapat membuka link: ${church.gpsLink}',
-                              ),
-                            ),
-                          );
-                        }
+                        // final Uri uri = Uri.parse(church.gpsLink);
+                        // if (await canLaunchUrl(uri)) {
+                        //   await launchUrl(
+                        //     uri,
+                        //     mode: LaunchMode
+                        //         .externalApplication, // Buka di aplikasi eksternal
+                        //   );
+                        // } else {
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     SnackBar(
+                        //       content: Text(
+                        //         'Tidak dapat membuka link: ${church.gpsLink}',
+                        //       ),
+                        //     ),
+                        //   );
+                        // }
                       },
                       child: Text(
                         church.gpsLink,

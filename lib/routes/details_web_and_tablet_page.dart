@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyek_akhir/models/church_model.dart';
 import 'package:proyek_akhir/provider/favorite_churches_provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class DetailsWebAndTabletPage extends StatefulWidget {
   final ChurchModel church;
@@ -215,19 +215,19 @@ class DetailsWebAndTabletPageState extends State<DetailsWebAndTabletPage> {
       BuildContext context, ChurchModel church, double fontSize) {
     return GestureDetector(
       onTap: () async {
-        final Uri uri = Uri.parse(church.gpsLink);
-        if (await canLaunchUrl(uri)) {
-          await launchUrl(
-            uri,
-            mode: LaunchMode.externalApplication,
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Cannot open link: ${church.gpsLink}'),
-            ),
-          );
-        }
+        // final Uri uri = Uri.parse(church.gpsLink);
+        // if (await canLaunchUrl(uri)) {
+        //   await launchUrl(
+        //     uri,
+        //     mode: LaunchMode.externalApplication,
+        //   );
+        // } else {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(
+        //       content: Text('Cannot open link: ${church.gpsLink}'),
+        //     ),
+        //   );
+        // }
       },
       child: Text(
         church.gpsLink,
