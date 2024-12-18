@@ -121,7 +121,28 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         padding: const EdgeInsets.only(top: 54, right: 16, left: 16),
-        child: _buildFormContent(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              "Join Churchers",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              "Find an interesting church.",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 32),
+            _buildFormContent(),
+          ],
+        ),
       ),
     );
   }
@@ -269,7 +290,7 @@ class _LoginPageState extends State<LoginPage> {
               text: TextSpan(
                 text: "Don't have an account? ",
                 style: const TextStyle(
-                  color: Colors.grey,
+                  color: Colors.black,
                   fontSize: 16,
                 ),
                 children: [

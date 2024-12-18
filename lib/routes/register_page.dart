@@ -125,7 +125,28 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ),
         padding: const EdgeInsets.only(top: 54, right: 16, left: 16),
-        child: _buildFormContent(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              "Create Account",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              "Enter your personal data correctly, Churchers!",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 32),
+            _buildFormContent(),
+          ],
+        ),
       ),
     );
   }
@@ -154,7 +175,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const Text(
                 "Create Account",
                 style: TextStyle(
-                  fontSize: 28, 
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
